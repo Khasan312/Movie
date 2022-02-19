@@ -69,7 +69,6 @@ class FilmsViewSet(PermissionMixin, ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 class CommentViewSet(PermissionMixin, ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -129,12 +128,6 @@ class FavoriteViewSet(generics.ListCreateAPIView):
             return Response({'detail': 'User added to post'}, status=status.HTTP_200_OK)
         return Response({'detail': 'dont'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request):
-        film = get_object_or_404(Film, slug=request.data.get('slug'))
-        if request.user in film.favourite.all():
-            film.favourite.remove(request.user)
-            return Response({'detail': 'User removed from post'}, status=status.HTTP_204_NO_CONTENT)
-        return Response({'detail': 'dont'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

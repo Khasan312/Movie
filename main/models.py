@@ -29,6 +29,7 @@ class Film(models.Model):
     )
     favorites = models.ManyToManyField("Favorite", related_name='favorites', default=None, blank=True)
 
+
     def __str__(self):
         return self.title
 

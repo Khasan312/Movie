@@ -8,7 +8,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from main.models import FilmImage
-from main.views import CategoryListView, FilmsViewSet, FilmImageView, CommentsView, RatingView, FavoriteViewSet
+from main.views import CategoryListView, FilmsViewSet, FilmImageView, CommentsView, RatingView, FavoriteViewSet, \
+    CommentViewSet
 
 router = DefaultRouter()
 router.register('films', FilmsViewSet)
@@ -40,8 +41,8 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.authtoken')),
     path('', schema_view.with_ui()),
-    path('v1/api/films/<int:id>/comments/', CommentsView.as_view()),
+    path('v1/api/films/<int:id>/comments/', CommentViewSet.as_view({'get': 'list'})),
     path('v1/api/films/<int:id>/rating/', RatingView.as_view()),
-    path('v1/api/films/<int:id>/favorite/', FavoriteViewSet.as_view()),
+    path('v1/api/films/<int:id>/favorite/', FavoriteViewSet.as_view())
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
